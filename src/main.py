@@ -1,6 +1,9 @@
 __author__ = 'Taavi'
 
 from calculator import CoordsCalculator
+import cv2
+from tracker_example import *
+from visualizer import *
 from time import sleep
 
 
@@ -8,20 +11,18 @@ def result(coords):
     print(str(coords[0])+" "+str(coords[1]))
 
 if __name__ == '__main__':
+    visualizer = Visualizer()
+    sleep(100)
 
     calculator = CoordsCalculator(100, 2)
-    calculator.on_coords_calculated = result
-    
-    # Calculator test
-    f = open("../data/data4.txt")
-    lines = f.read().split('\n')
+    calculator.on_coords_calculated = visualizer.display
 
-    for line in lines:
-        parts = line.split(' ')
+    tracker = Tracker()
+    tracker.on_frame_processed = calculator.calculate_coords
 
-        if parts[1] == "None":
-            calculator.calculate_coords(None)
-        else:
-            calculator.calculate_coords((float(parts[1]), float(parts[1])))
+    capture = cv2.VideoCapture(0)
 
-        sleep(0.001)
+    while True:
+        ret, frame = capture.read()
+        visualizer.update_frame(frame)
+        tracker.process_frame(frame)
