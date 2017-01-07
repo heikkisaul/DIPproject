@@ -1,27 +1,27 @@
 __author__ = 'Taavi'
 
+from calculator import CoordsCalculator
+from time import sleep
 
-import numpy as np
 
-f = open("data3.txt")
-lines = f.read().split('\n')
+def result(coords):
+    print(str(coords[0])+" "+str(coords[1]))
 
-x = []
-y = []
+if __name__ == '__main__':
 
-for line in lines:
-    parts = line.split('\t')
+    calculator = CoordsCalculator(100, 2)
+    calculator.on_coords_calculated = result
+    
+    # Calculator test
+    f = open("../data/data4.txt")
+    lines = f.read().split('\n')
 
-    if len(parts) < 2:
-        continue
+    for line in lines:
+        parts = line.split(' ')
 
-    x.append(float(parts[0]))
-    y.append(float(parts[1]))
+        if parts[1] == "None":
+            calculator.calculate_coords(None)
+        else:
+            calculator.calculate_coords((float(parts[1]), float(parts[1])))
 
-for n in range(len(x)):
-    print("x="+str(x[n])+" y="+str(y[n]))
-
-a = np.polyfit(x, y, 2)
-
-print(a)
-
+        sleep(0.001)
