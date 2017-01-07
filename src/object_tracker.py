@@ -1,10 +1,29 @@
 import cv2
 import numpy as np
 
-def threshold(frame,BGR_lower, BGR_upper):
+def detect_contours(frame, HSV_lower, HSV_upper):
 
-    lowerbound = np.array(BGR_lower)
-    upperbound = np.array(BGR_upper)
+    hsv_f = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+
+    mask = cv2.inRange(hsv_f, HSV_lower, HSV_upper)
+    mask = cv2.erode(mask, None, iterations=2)
+    mask = cv2.dilate(mask, None, iterations=2)
+
+    contour = cv2.findContours(mask.copy(),cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)[-2]
+    center = None
+
+    print contour
+
+    #if len(contour) > 0:
+        #c = max(contour,)
+
+    return mask
+
+
+def threshold(frame,HSV_lower, HSV_upper):
+
+    lowerbound = np.array(HSV_lower)
+    upperbound = np.array(HSV_upper)
 
     frame = cv2.inRange(frame, lowerbound, upperbound)
 
@@ -42,9 +61,8 @@ if __name__ == '__main__':
         ret, frame = capture.read()
         cv2.imshow('frame', frame)
 
-        out_frame = blob_handling(threshold(frame,[0,0,150],[100,100,255]))
-
-        cv2.imshow('blobim', out_frame)
+        mask = detect_contours(frame, (0,0,0), (180,180,180))
+        cv2.imshow('mask', mask)
 
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
