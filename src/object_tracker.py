@@ -1,8 +1,13 @@
 import cv2
 import numpy as np
+import time
 
 # TODO hsv is very noisy, maybe use RGB and a calibration mechanism?
 # TODO increase robustness of primary blob (currently gives "no blob" on a lot of frames)
+
+
+def current_time_ms():
+    return int(round(time.time() * 1000))
 
 
 def threshold(frame,HSV_lower, HSV_upper):
@@ -14,13 +19,14 @@ def threshold(frame,HSV_lower, HSV_upper):
 
     return frame
 
+
 def blob_handling(frame):
 
     # apply filtering to increase detection robustness
     # TODO test possible filters for increased robustness
     kernel = np.ones((3,3),np.uint8)
 
-    filtered_frame = cv2.morphologyEx(frame,cv2.MORPH_OPEN,kernel)
+    filtered_frame = cv2.morphologyEx(frame, cv2.MORPH_OPEN, kernel)
 
     params = cv2.SimpleBlobDetector_Params()
 
@@ -44,16 +50,14 @@ def blob_handling(frame):
         return filtered_frame, key_coords
 
     # if no fitting blob is detected, return frame and empty tuple
-    else: return filtered_frame,()
-
-
+    else:
+        return filtered_frame,()
 
 
 if __name__ == '__main__':
 
-
-
     capture = cv2.VideoCapture(0)
+    start_time = current_time_ms()
 
     while(True):
         ret, frame = capture.read()
