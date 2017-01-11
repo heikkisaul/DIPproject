@@ -14,8 +14,6 @@ class CoordsCalculator:
         self.last_visible = True
         self.current_index = 0
 
-        self.start_time = int(round(time.time() * 1000))
-
         self.x_coefs = []
         self.y_coefs = []
 
@@ -25,10 +23,7 @@ class CoordsCalculator:
 
         self.on_coords_calculated = None
 
-    def calculate_coords(self, coords):
-
-        current_time = int(round(time.time() * 1000)) - self.start_time
-
+    def calculate_coords(self, coords, timestamp):
         if coords is not None:
             self.last_visible = True
 
@@ -39,7 +34,7 @@ class CoordsCalculator:
 
             self.x_buf.append(coords[0])
             self.y_buf.append(coords[1])
-            self.time_buf.append(current_time)
+            self.time_buf.append(timestamp)
 
             return coords[0], coords[1]
 
@@ -65,7 +60,7 @@ class CoordsCalculator:
                 self.y_buf = []
                 self.time_buf = []
 
-            px, py = self.guess(current_time)
+            px, py = self.guess(timestamp)
 
             return px, py
 

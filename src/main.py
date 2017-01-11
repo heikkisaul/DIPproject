@@ -3,8 +3,7 @@ __author__ = 'Taavi'
 from calculator import CoordsCalculator
 import cv2
 from tracker_example import *
-from visualizer import *
-from time import sleep
+import time
 
 if __name__ == '__main__':
 
@@ -14,12 +13,15 @@ if __name__ == '__main__':
     tracker = Tracker((30,90,90), (40,220,220))
 
     capture = cv2.VideoCapture(0)
+    start_time = int(round(time.time() * 1000))
+
     coord_array = []
 
     while(True):
         ret, frame = capture.read()
+        timestamp = int(round(time.time() * 1000)) - start_time
 
-        coords = calculator.calculate_coords(tracker.process_frame(frame))
+        coords = calculator.calculate_coords(tracker.process_frame(frame), timestamp)
 
         if coords is not None:
             x = int(coords[0])
