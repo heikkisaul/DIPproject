@@ -15,14 +15,16 @@ def detect_contours(frame, HSV_lower, HSV_upper):
         c = max(contour,key=cv2.contourArea)
         #((x,y),radius) = cv2.minEnclosingCircle(c)
         M = cv2.moments(c)
-        if int(M["m00"]) == 0:
+        if int(M["m00"]) <= 100:
             center = None
         else:
             center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]) )
 
         cv2.circle(mask, center, 5, (0, 0, 255), -1)
 
-    return center
+        print(M["m00"])
+
+    return center, mask
 
 if __name__ == '__main__':
 
@@ -32,8 +34,10 @@ if __name__ == '__main__':
         ret, frame = capture.read()
         cv2.imshow('frame', frame)
 
-        center = detect_contours(frame, (30,90,90), (40,160,160))
+        center,mask = detect_contours(frame, (30,90,90), (40,220,220))
+
         print(center)
+        cv2.imshow('mask', mask)
 
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break

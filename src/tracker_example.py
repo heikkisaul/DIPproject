@@ -28,7 +28,7 @@ class Tracker:
         if len(contour) > 0:
             c = max(contour, key=cv2.contourArea)
             M = cv2.moments(c)
-            if int(M["m00"]) == 0:
+            if int(M["m00"]) <= 500:
                 center = None
             else:
                 center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))

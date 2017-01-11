@@ -54,7 +54,7 @@ class CoordsCalculator:
 
         else:
             if self.last_visible:
-                if len(self.time_buf) < 10:
+                if len(self.time_buf) < 5:
                     return None
 
                 self.last_visible = False
