@@ -32,24 +32,10 @@ class CoordsCalculator:
         if coords is not None:
             self.last_visible = True
 
-            if not self.history_full:
-                self.x_buf.append(coords[0])
-                self.y_buf.append(coords[1])
-                self.time_buf.append(current_time)
-
-                self.current_index += 1
-
-                if self.current_index == self.size:
-                    self.history_full = True
-            else:
-                self.x_buf.pop(0)
-                self.y_buf.pop(0)
-                self.time_buf.pop(0)
-
-                self.x_buf.append(coords[0])
-                self.y_buf.append(coords[1])
-                self.time_buf.append(current_time)
-
+            self.x_buf.append(coords[0])
+            self.y_buf.append(coords[1])
+            self.time_buf.append(current_time)
+            
             return coords[0], coords[1]
 
         else:
