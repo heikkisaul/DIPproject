@@ -59,7 +59,8 @@ class CoordsCalculator:
 
                 self.last_visible = False
 
-                print("Objest lost, calculating coefs")
+                print("Objest lost, calculating coefs based of num of coords:")
+                print(len(self.time_buf))
 
                 self.x_coefs = np.polyfit(self.time_buf, self.x_buf, 2)
                 self.y_coefs = np.polyfit(self.time_buf, self.y_buf, 2)
