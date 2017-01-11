@@ -8,6 +8,9 @@ from time import sleep
 
 if __name__ == '__main__':
 
+    COORD_ARRAY_LENGTH = 50
+    current_length = 0
+
     calculator = CoordsCalculator(100, 2)
     tracker = Tracker((30, 90, 90), (40, 160, 160))
 
@@ -23,10 +26,15 @@ if __name__ == '__main__':
             x = int(coords[0])
             y = int(coords[1])
 
-            coord_array.append((x, y))
+            if len(coord_array) >= COORD_ARRAY_LENGTH:
+                coord_array.pop(0)
+                coord_array.append((x, y))
+                current_length += 1
+            else:
+                coord_array.append((x, y))
 
             for coord in coord_array:
-                cv2.circle(frame, (x, y), 5, (0, 0, 255), -1)
+                cv2.circle(frame, coord, 5, (0, 0, 255), -1)
 
         cv2.imshow('elevant', frame)
 
