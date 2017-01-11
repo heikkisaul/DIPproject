@@ -14,18 +14,25 @@ if __name__ == '__main__':
     capture = cv2.VideoCapture(0)
     coord_array = []
 
-    while True:
+    while(True):
         ret, frame = capture.read()
-        x_f, y_f = calculator.calculate_coords(tracker.process_frame(frame))
 
-        x = int(x_f)
-        y = int(y_f)
+        coords = calculator.calculate_coords(tracker.process_frame(frame))
 
-        coord_array.append((x, y))
+        if coords is not None:
+            x = int(coords[0])
+            y = int(coords[1])
 
-        cv2.circle(frame, (x, y), 30, (255, 0, 0), 1)
+            coord_array.append((x, y))
 
-        for coord in coord_array:
-            cv2.circle(frame, (x, y), 5, (0, 0, 255), -1)
+            for coord in coord_array:
+                cv2.circle(frame, (x, y), 5, (0, 0, 255), -1)
 
-        cv2.imshow('Name', frame)
+        cv2.imshow('elevant', frame)
+
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+
+    capture.release()
+    cv2.destroyAllWindows()
+
