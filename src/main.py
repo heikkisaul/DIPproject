@@ -12,7 +12,20 @@ if __name__ == '__main__':
     tracker = Tracker((30, 90, 90), (40, 160, 160))
 
     capture = cv2.VideoCapture(0)
+    coord_array = []
 
     while True:
         ret, frame = capture.read()
-        print(calculator.calculate_coords(tracker.process_frame(frame)))
+        x_f, y_f = calculator.calculate_coords(tracker.process_frame(frame))
+
+        x = int(x_f)
+        y = int(y_f)
+
+        coord_array.append((x, y))
+
+        cv2.circle(frame, (x, y), 30, (255, 0, 0), 1)
+
+        for coord in coord_array:
+            cv2.circle(frame, (x, y), 5, (0, 0, 255), -1)
+
+        cv2.imshow('Name', frame)
