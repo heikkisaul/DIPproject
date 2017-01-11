@@ -39,12 +39,10 @@ class CoordsCalculator:
         else:
             if self.last_visible:
                 if len(self.time_buf) < 5:
+                    print("Not enough data")
                     return None
 
                 self.last_visible = False
-
-                print("Objest lost, calculating coefs based of num of coords:")
-                print(len(self.time_buf))
 
                 self.x_coefs = np.polyfit(self.time_buf, self.x_buf, 3)
                 self.y_coefs = np.polyfit(self.time_buf, self.y_buf, 3)
