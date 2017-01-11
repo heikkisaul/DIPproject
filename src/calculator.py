@@ -26,6 +26,7 @@ class CoordsCalculator:
         self.on_coords_calculated = None
 
     def calculate_coords(self, coords):
+
         current_time = int(round(time.time() * 1000)) - self.start_time
 
         if coords is not None:
