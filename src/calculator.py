@@ -32,10 +32,15 @@ class CoordsCalculator:
         if coords is not None:
             self.last_visible = True
 
+            if len(self.time_buf) >= self.size:
+                self.x_buf.pop(0)
+                self.y_buf.pop(0)
+                self.time_buf.pop(0)
+
             self.x_buf.append(coords[0])
             self.y_buf.append(coords[1])
             self.time_buf.append(current_time)
-            
+
             return coords[0], coords[1]
 
         else:
@@ -48,8 +53,8 @@ class CoordsCalculator:
                 print("Objest lost, calculating coefs based of num of coords:")
                 print(len(self.time_buf))
 
-                self.x_coefs = np.polyfit(self.time_buf, self.x_buf, 2)
-                self.y_coefs = np.polyfit(self.time_buf, self.y_buf, 2)
+                self.x_coefs = np.polyfit(self.time_buf, self.x_buf, 3)
+                self.y_coefs = np.polyfit(self.time_buf, self.y_buf, 3)
 
                 print("Calculated coefs:")
                 print(self.x_coefs)
@@ -65,7 +70,7 @@ class CoordsCalculator:
             return px, py
 
     def guess(self, t):
-        ret_x = (self.x_coefs[0] * t * t) + (self.x_coefs[1] * t) + self.x_coefs[2]
-        ret_y = (self.y_coefs[0] * t * t) + (self.y_coefs[1] * t) + self.y_coefs[2]
+        ret_x = (self.x_coefs[0] * t * t * t) + (self.x_coefs[1] * t * t) + (self.x_coefs[2] * t) + self.x_coefs[3]
+        ret_y = (self.y_coefs[0] * t * t * t) + (self.y_coefs[1] * t * t) + (self.y_coefs[2] * t) + self.y_coefs[3]
 
         return ret_x, ret_y

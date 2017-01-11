@@ -10,7 +10,7 @@ if __name__ == '__main__':
 
     COORD_ARRAY_LENGTH = 50
 
-    calculator = CoordsCalculator(100, 2)
+    calculator = CoordsCalculator(150, 2)
     tracker = Tracker((30,90,90), (40,220,220))
 
     capture = cv2.VideoCapture(0)
