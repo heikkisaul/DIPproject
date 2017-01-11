@@ -33,4 +33,4 @@ class Tracker:
             else:
                 center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
 
-        self.on_frame_processed(center)
+        return center

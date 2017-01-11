@@ -50,12 +50,12 @@ class CoordsCalculator:
                 self.y_buf.append(coords[1])
                 self.time_buf.append(current_time)
 
-            self.on_coords_calculated((coords[0], coords[1]))
+            return coords[0], coords[1]
 
         else:
             if self.last_visible:
                 if len(self.time_buf) < 10:
-                    return
+                    return None
 
                 self.last_visible = False
 
@@ -75,7 +75,7 @@ class CoordsCalculator:
 
             px, py = self.guess(current_time)
 
-            self.on_coords_calculated((px, py))
+            return px, py
 
     def guess(self, t):
         ret_x = (self.x_coefs[0] * t * t) + (self.x_coefs[1] * t) + self.x_coefs[2]
