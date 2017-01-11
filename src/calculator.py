@@ -52,6 +52,9 @@ class CoordsCalculator:
             self.on_coords_calculated((coords[0], coords[1]))
 
         else:
+            if len(self.time_buf) < 10:
+                return
+
             if self.last_visible:
                 self.last_visible = False
 
@@ -76,11 +79,5 @@ class CoordsCalculator:
     def guess(self, t):
         ret_x = (self.x_coefs[0] * t * t) + (self.x_coefs[1] * t) + self.x_coefs[2]
         ret_y = (self.y_coefs[0] * t * t) + (self.y_coefs[1] * t) + self.y_coefs[2]
-
-        """
-        for i in range(self.rank):
-            ret_x += self.x_coefs[i] * (t ** (self.rank - i))
-            ret_y += self.y_coefs[i] * (t ** (self.rank - i))
-        """
 
         return ret_x, ret_y
