@@ -2,14 +2,14 @@ __author__ = 'Taavi'
 
 from calculator import CoordsCalculator
 import cv2
-from tracker_example import *
+from tracker import *
 import time
 
 if __name__ == '__main__':
 
     COORD_ARRAY_LENGTH = 50
 
-    calculator = CoordsCalculator(150, 2)
+    calculator = CoordsCalculator(150)
     tracker = Tracker((30,90,90), (40,220,220))
 
     capture = cv2.VideoCapture(0)

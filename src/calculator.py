@@ -7,10 +7,8 @@ import time
 
 class CoordsCalculator:
 
-    def __init__(self, size, rank):
+    def __init__(self, size):
         self.size = size
-        self.rank = rank
-        self.history_full = False
         self.last_visible = True
         self.current_index = 0
 
@@ -53,8 +51,6 @@ class CoordsCalculator:
 
                 print("Calculated coefs:")
                 print(self.x_coefs)
-
-                self.history_full = False
 
                 self.x_buf = []
                 self.y_buf = []
