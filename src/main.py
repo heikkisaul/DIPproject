@@ -6,9 +6,8 @@ from tracker_example import *
 from visualizer import *
 from time import sleep
 
-coords = (0, 0)
 def result(in_coords):
-    coords = in_coords
+    print(in_coords)
 
 if __name__ == '__main__':
 
@@ -23,5 +22,3 @@ if __name__ == '__main__':
     while True:
         ret, frame = capture.read()
         tracker.process_frame(frame)
-
-        print(coords)

@@ -53,10 +53,10 @@ class CoordsCalculator:
             self.on_coords_calculated((coords[0], coords[1]))
 
         else:
-            if len(self.time_buf) < 10:
-                return
-
             if self.last_visible:
+                if len(self.time_buf) < 10:
+                    return
+
                 self.last_visible = False
 
                 print("Objest lost, calculating coefs")
