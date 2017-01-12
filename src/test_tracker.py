@@ -20,7 +20,7 @@ def detect_contours(frame, HSV_lower, HSV_upper):
         else:
             center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]) )
 
-        cv2.circle(mask, center, 5, (0, 0, 255), -1)
+        #cv2.circle(mask, center, 5, (0, 0, 255), -1)
 
         print(M["m00"])
 
@@ -34,7 +34,7 @@ if __name__ == '__main__':
         ret, frame = capture.read()
         cv2.imshow('frame', frame)
 
-        center,mask = detect_contours(frame, (30,90,90), (40,220,220))
+        center,mask = detect_contours(frame, (30,50,50), (40,255,255))
 
         print(center)
         cv2.imshow('mask', mask)
