@@ -1,4 +1,9 @@
-__author__ = 'Taavi'
+__author__ = 'Taavi Adamson, Heikki Saul'
+
+"""
+tracker.py
+Handles thresholding, contour detection and centroid output
+"""
 
 import cv2
 
@@ -6,7 +11,6 @@ import cv2
 class Tracker:
 
     def __init__(self, HSV_lowerbound, HSV_upperbound):
-        #Register callback to this variable
         self.on_frame_processed = None
         self.lowerbound = HSV_lowerbound
         self.upperbound = HSV_upperbound
@@ -27,7 +31,9 @@ class Tracker:
         # If there are any contours, calculate center coordinate for biggest one
         if len(contour) > 0:
             c = max(contour, key=cv2.contourArea)
+            # get image moments from contour
             M = cv2.moments(c)
+            # If only a minute part of the object is visible, start outputting None
             if int(M["m00"]) <= 500:
                 center = None
             else:

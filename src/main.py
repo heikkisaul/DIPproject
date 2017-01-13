@@ -1,9 +1,19 @@
-__author__ = 'Taavi'
+__author__ = 'Taavi Adamson, Heikki Saul'
+
+"""
+main.py
+Includes main method.
+RUN THIS TO RUN PROGRAM
+"""
 
 from calculator import CoordsCalculator
 import cv2
 from tracker import *
 import time
+
+HSV_LOWER = (30,90,90)
+HSV_UPPER = (40,220,220)
+CAMERA_ID = 0
 
 if __name__ == '__main__':
 	
@@ -11,10 +21,10 @@ if __name__ == '__main__':
     COORD_ARRAY_LENGTH = 50
 
     calculator = CoordsCalculator(150)
-    tracker = Tracker((30,90,90), (40,220,220))
+    tracker = Tracker(HSV_LOWER, HSV_UPPER)
 	
 	# Find a camera and start vide capturing
-    capture = cv2.VideoCapture(0)
+    capture = cv2.VideoCapture(CAMERA_ID)
 	
     start_time = int(round(time.time() * 1000))
 

@@ -1,3 +1,10 @@
+__author__ = 'Taavi Adamson, Heikki Saul'
+
+"""
+test_tracker.py
+Used for testing and calibrations. Not a part of the main program.
+"""
+
 import cv2
 
 def detect_contours(frame, HSV_lower, HSV_upper):

@@ -1,4 +1,9 @@
-__author__ = 'Taavi'
+__author__ = 'Taavi Adamson, Heikki Saul'
+
+"""
+calculator.py
+Contains CoordsCalculator class that handles location approximation
+"""
 
 
 import numpy as np

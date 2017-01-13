@@ -1,1 +1,1 @@
-__author__ = 'Taavi'
+__author__ = 'Taavi Adamson, Heikki Saul'
